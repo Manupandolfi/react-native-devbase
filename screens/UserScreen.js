@@ -4,6 +4,7 @@ import { Avatar, ListItem, Text } from "react-native-elements";
 import { getUser } from "../api/githubApi";
 import Loader from "../components/shared/Loader";
 import { colors } from "react-native-elements";
+import messages from "../constants/lang";
 
 const UserScreen = ({ route }) => {
   const { username } = route.params;
@@ -15,16 +16,14 @@ const UserScreen = ({ route }) => {
   useEffect(() => {
     getUser(username)
       .then((res) => {
-        if (res.status === 200) {
-          setUser(res.data);
-        } else {
-          setError("An error ocurred while obtaining user data");
-        }
+        res.status === 200
+          ? setUser(res.data)
+          : setError(messages.error.fetchUser);
       })
       .catch((err) => {
         //TODO parse error
         console.log(err);
-        setError("An error ocurred while obtaining user data");
+        setError(messages.error.fetchUser);
       })
       .finally(() => {
         setLoading(false);
@@ -65,10 +64,6 @@ export default UserScreen;
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-  },
-  title: {
-    fontSize: 40,
-    fontWeight: "bold",
   },
   error: {
     color: colors.error,
