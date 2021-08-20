@@ -17,15 +17,14 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   const navigateUserDetails = (username) => {
-    console.log("on navigate " + username);
-    // navigation.navigate("User", { username });
+    navigation.navigate("User", { username });
   };
 
   return (
     <View style={styles.root}>
-      <Text h1>Home Screen</Text>
-      <Text h4 style={styles.description}>
-        Description...
+      <Text h2>Top 5 GitHub Users</Text>
+      <Text style={styles.description}>
+        Tap the username to see more information
       </Text>
       {loading ? (
         <Loader label={"Fetching users..."} />
@@ -44,8 +43,9 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   description: {
-    color: "#afafaf",
-    marginLeft: 5,
-    marginBottom: 10,
+    marginHorizontal: 10,
+    marginTop: 10,
+    marginBottom: 15,
+    fontSize: 18,
   },
 });
